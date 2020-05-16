@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>{{user.username}}</h2>
+  <hr>
+  <p>팔로잉 : {{ user.followings.count }}명</p>
+  <span>팔로잉 목록 :</span>
+  {% for following in user.followings.all %}
+      <span>{{following}} </span>
+  {% endfor %}
+  <p>팔로워 : {{ user.followers.count }}명</p>
+  <span>팔로워 목록 :</span>
+  {% for follower in user.followers.all %}
+      <span>{{follower}} </span>
+  {% endfor %}
+
+  {% if request.user != user %}
+  <form action="{% url 'accounts:follow' user.username %}" method="POST">
+    {% csrf_token %}
+    {% if request.user in user.followers.all %}
+        <button>unfollow</button>
+    {% else %}
+        <button>follow</button>
+    {% endif %}
+  </form>
+  {% else %}
+    <form action="{% url 'accounts:update' %}" method='POST'>
+      {% csrf_token %}
+      <button>수정</button>
+    </form>
+    <form action="{% url 'accounts:delete' %}" method='POST'>
+      {% csrf_token %}
+      <button>탈퇴</button>
+    </form>
+  {% endif %}
+{% endblock %}
