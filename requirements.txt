@@ -5,7 +5,7 @@ django-appconf==1.0.4
 django-bootstrap4==1.1.1
 django-imagekit==4.0.2
 pilkit==2.0
-Pillow==7.1.2
+Pillow==9.3.0
 pytz==2020.1
 six==1.14.0
 soupsieve==2.0
